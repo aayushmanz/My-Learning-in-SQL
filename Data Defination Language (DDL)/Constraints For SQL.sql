@@ -17,6 +17,15 @@ CREATE TABLE department(
     email VARCHAR(255) NOT NULL
 );
 
+-- NOT NULL using CONSTRAINT
+CREATE TABLE department(
+    d_id INTEGER,
+    d_name VARCHAR(255),
+    email VARCHAR(255) ,
+
+    CONSTRAINT for_not_null NOT NULL(d_id, d_name, email)
+);
+
 
 -- 2. UNIQUE use :
 CREATE TABLE faculty(
@@ -25,11 +34,30 @@ CREATE TABLE faculty(
     email VARCHAR(255) NOT NULL UNIQUE
 );
 
+
+-- UNIQUE using CONSTRAINT
+CREATE TABLE faculty(
+    fid INTEGER NOT NULL,
+    f_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL ,
+
+    CONSTRAINT for_unique UNIQUE(f_id, email)
+);
+
 -- 3. PRIMARY KEY use :
 CREATE TABLE primary_key(
     pid INTEGER NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE
+);
+
+-- PRIMARY KEY using CONSTRAINT 
+CREATE TABLE primary_key(
+    pid INTEGER NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+
+    CONSTRAINT for_pk PRIMARY KEY(pid)
 );
 
 
@@ -40,16 +68,43 @@ CREATE TABLE auto_increment(
     email VARCHAR(255) NOT NULL UNIQUE
 );
 
+-- AUTO_INCREMENT using CONSTRAINT 
+CREATE TABLE auto_increment(
+    id INTEGER NOT NULL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+
+    CONSTRAINT for_auto AUTO_INCREMENT(id)
+);
+
 -- 5. CHECK use :
 CREATE TABLE check_(
     cid INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     age NOT NULL CHECK(age > 3 AND age < 25)
 );
 
+
+-- CHECK using CONSTRAINT 
+CREATE TABLE check_(
+    cid INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    age NOT NULL,
+
+    CONSTRAINT for_check CHECK(age > 3 AND age < 25) 
+);
+
 -- 6. DEFAULT use :
 CREATE TABLE default_(
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     admission_date NOT NULL DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- 6. DEFAULT use :
+CREATE TABLE default_(
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    admission_date NOT NULL,
+
+    CONSTRAINT for_time DATETIME DEFAULT CURRENT_TIMESTAMP(admission_date)
 );
 
 
@@ -62,5 +117,7 @@ CREATE TABLE first_(
 
 CREATE TABLE second_(
     pid INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    id INTEGER FOREIGN KEY (pid) REFERENCES first_(id)
+    id INTEGER FOREIGN KEY (pid) REFERENCES first_(id),
+
+     -- CONSTRAINT for_Forign_key FOREIGN KEY (pid) REFERENCES first_(id)
 );
