@@ -99,7 +99,7 @@ CREATE TABLE default_(
 );
 
 
--- 6. DEFAULT use :
+-- DEFAULT use CONSTRAINT :
 CREATE TABLE default_(
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     admission_date NOT NULL,
