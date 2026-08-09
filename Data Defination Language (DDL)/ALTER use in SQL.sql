@@ -1,0 +1,38 @@
+-- ALTER COMMANDs USAGE :
+
+-- 1. ADD COlUMN
+-- 2. DELETE COLUMN
+-- 3. MODIFY COLUMN
+
+
+USE vision;
+
+
+
+-- 1. ADD COLUMN use :
+ALTER TABLE department 
+ADD COlUMN password VARCHAR(255) NOT NULL;
+
+
+-- ADD MULTIPLE COLUMN use :
+ALTER TABLE department 
+ADD COLUMN description_ VARCHAR(255) NOT NULL,
+ADD COLUMN number INTEGER NOT NULL;
+
+
+
+-- 2. DELETE COLUMN use :
+ALTER TABLE department 
+DROP COlUMN password;
+
+
+-- DROP MULTIPLE COLUMN use :
+ALTER TABLE department 
+DROP COLUMN number,
+DROP COlUMN password;
+
+
+
+-- 3. MODIFY COLUMN
+ALTER TABLE department
+MODIFY COLUMN number VARCHAR(255) NOT NULL;
