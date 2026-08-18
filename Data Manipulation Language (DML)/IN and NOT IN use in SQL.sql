@@ -16,3 +16,6 @@ WHERE processor_brand IN ('snapdragon, exynos', 'bionic', 'dimensity');
 -- use of  NOT IN :
 SELECT * FROM smartphones_cleaned_v6
 WHERE brand_name NOT IN ('apple');
+
+
+
