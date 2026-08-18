@@ -36,3 +36,6 @@ WHERE brand_name = 'samsung' AND ram_capacity > 8;
 SELECT * FROM smartphones_cleaned_v6
 WHERE brand_name = 'samsung' AND processor_brand = 'snapdragon';
 
+-- find brands who sell phones with price > 50000
+SELECT DISTINCT brand_name FROM smartphones_cleaned_v6
+WHERE price > 50000;
