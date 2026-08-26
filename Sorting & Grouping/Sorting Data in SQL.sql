@@ -27,12 +27,14 @@ ORDER BY battery_capacity DESC LIMIT 1,1;
 --find the name and rating of the worst rated apple phone
 SELECT model, rating FROM smartphones_cleaned_v6 
 WHERE brand_name = 'apple'
-ORDER BY rating DESC LIMIT 3;
+ORDER BY rating DESC LIMIT 1;
+
 
 --Sort phones alphabethically and then on the basis of rating in desc order.
-SELECT * FROM smartphones_cleaned_v6
-ORDER BY model DESC;
+SELECT brand_name, rating FROM smartphones_cleaned_v6
+ORDER BY brand_name ASC, rating DESC;
+
 
 --sort phones alphabethically and then on the basis of price in AESC order
-SELECT * FROM smartphones_cleaned_v6
-ORDER BY model ASC;
+SELECT brand_name, rating FROM smartphones_cleaned_v6
+ORDER BY brand_name ASC, price ASC;
