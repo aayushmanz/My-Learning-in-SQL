@@ -2,8 +2,29 @@ USE smart;
 
 -- Grouping smart phones as by brand and get the count, avg price, max rating, avg screen size, and battery capacity.
 -- > groupby animation
+SELECT brand_name, count(*) AS num_phone,
+ROUND(AVG(price)) AS 'avg_price',
+MAX(rating) AS 'max_rating',
+AVG(screen_size) AS "avg_screen_size",
+AVG(battery_capacity) AS 'avg_battery_capacity'
+FROM smartphones_cleaned_v6
+GROUP BY brand_name
+ORDER BY num_phone DESC LIMIT 15;
 
 -- group smartphones by whether they have an NFC and get the avg price and rating.
+SELECT has_nfc,
+AVG(rating) AS "avg_rating",
+AVG(price) AS "avg_price"
+FROM smartphones_cleaned_v6
+GROUP BY has_nfc;
+
+
+SELECT fast_charging_available,
+AVG(rating) AS "avg_rating",
+AVG(price) AS "avg_price"
+FROM smartphones_cleaned_v6
+GROUP BY fast_charging_available;
+
 
 -- Group smartphones by the extended memory availabe and get the avg price.
 
