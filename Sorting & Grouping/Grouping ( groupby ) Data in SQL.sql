@@ -66,9 +66,28 @@ ORDER BY avg_price;
 
 
 -- group smartphones by the brand and find brand with highest number of models that have both NFC and IR bluster.
-
+SELECT brand_name,
+COUNT(model) AS 'count_model'
+FROM smartphones_cleaned_v6
+WHERE has_nfc = 'True'
+AND has_ir_blaster = 'TRUE'
+GROUP BY brand_name
+ORDER BY count_model DESC;
 
 
 -- find all smasung  5g enabled smartphones and find out the  avg price for nfc amd non NFC phones.
+SELECT AVG(price) AS 'avg_price',
+has_nfc
+FROM smartphones_cleaned_v6
+WHERE brand_name = 'samsung'
+AND has_5g = 'True'
+GROUP BY has_nfc
+ORDER BY avg_price;
 
--- find the phones namesm, priec of the costliest phone.
+
+-- find the phones names, price of the costliest phone.
+SELECT model,
+price
+FROM smartphones_cleaned_v6
+GROUP BY model
+ORDER BY price DESC LIMIT 1;
