@@ -30,3 +30,11 @@ ON t1.user_id = t2.user_id;
 
 --OUTER JOIN :
 -- OUTER JOIN and FULL OUTER JOIN CANNOT PERFORM IN SQL
+-- alternative way :
+SELECT * FROM person1 t1
+RIGHT JOIN person2 t2
+ON t1.id = t2.id
+UNION
+SELECT * FROM person1 t1
+LEFT JOIN person2 t2
+ON t1.id = t2.id
