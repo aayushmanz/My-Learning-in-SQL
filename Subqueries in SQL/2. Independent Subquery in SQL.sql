@@ -53,7 +53,7 @@ WITH top_dirctor IN (SELECT director
                    FROM movies_cleaned
                    GROUP BY director 
                    ORDER BY SUM(gross) DESC LIMIT 3)
-                   
+
 SELECT * FROM movies_cleaned
 WHERE director IN (SELECT * FROM top_director)
 
@@ -61,9 +61,38 @@ WHERE director IN (SELECT * FROM top_director)
 -- 3. Find all movies of all those actors whose filmography's average rating
 --    is greater than 8.5 (take 25000 votes as cutoff)
 SELECT * FROM movies_cleaned
-WHERE star IN (SELECT star 
+WHERE star IN (SELECT star
                FROM movies_cleaned
                WHERE votes > 25000
                GROUP BY star
                HAVING AVG(score) > 8.5
-              ); 
+              );
+
+
+
+
+-- INDEPENDENT SUBQUERY - TABLE SUBQUERY (MULTI COLS MULTI ROWS)
+
+-- 1. Find the most profitable movie of each year
+SELECT * FROM movies_cleaned
+WHERE (year, gross - budget) IN (SELECT year, MAX(gross - budget)
+                                  FROM movies_cleaned
+                                  GROUP BY year);
+
+                                
+-- 2. Find the highest rated movie of each genre
+--    (votes cutoff of 25000)
+SELECT * FROM movies_cleaned
+WHERE (genre, score) IN (SELECT genre, MAX(score) 
+                           FROM movies_cleaned
+                           WHERE votes > 25000
+                        GROUP BY genre)
+AND votes > 25000;                           
+
+-- 3. Find the highest grossing movies of the top 5 actor/director combinations
+--    in terms of total gross income
+SELECT star, director, MAX(gross), SUM(gross) 
+FROM movies_cleaned
+GROUP BY star, director 
+ORDER BY SUM(gross) DESC LIMIT 5;
+
