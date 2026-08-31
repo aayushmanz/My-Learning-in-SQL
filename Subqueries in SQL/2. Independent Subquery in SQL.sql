@@ -1,4 +1,7 @@
 USE subquery;
+
+
+
 -- INDEPENDENT SUBQUERY - SCALAR SUBQUERY
 
 -- 1. Find the movie with the highest profit (using ORDER BY)
@@ -30,3 +33,37 @@ SELECT * FROM movies_cleaned
 WHERE votes > (SELECT AVG(votes) 
               FROM movies_cleaned)
 ORDER BY MAX(score) LIMIT 1; 
+
+
+
+
+-- INDEPENDENT SUBQUERY _ ROW SUBQUERY ( ONE COL MULTPLE ROWS)
+
+
+-- 1. Find all users who never ordered
+SELECT * FROM users 
+WHERE user_id NOT IN (SELECT DISTINCT(user_id) 
+                      FROM subquery.orders)
+
+
+-- 2. Find all the movies made by the top 3 directors
+--    (in terms of total gross income)
+
+WITH top_dirctor IN (SELECT director 
+                   FROM movies_cleaned
+                   GROUP BY director 
+                   ORDER BY SUM(gross) DESC LIMIT 3)
+                   
+SELECT * FROM movies_cleaned
+WHERE director IN (SELECT * FROM top_director)
+
+
+-- 3. Find all movies of all those actors whose filmography's average rating
+--    is greater than 8.5 (take 25000 votes as cutoff)
+SELECT * FROM movies_cleaned
+WHERE star IN (SELECT star 
+               FROM movies_cleaned
+               WHERE votes > 25000
+               GROUP BY star
+               HAVING AVG(score) > 8.5
+              ); 
