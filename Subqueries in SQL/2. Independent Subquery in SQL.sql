@@ -91,8 +91,12 @@ AND votes > 25000;
 
 -- 3. Find the highest grossing movies of the top 5 actor/director combinations
 --    in terms of total gross income
-SELECT star, director, MAX(gross), SUM(gross) 
-FROM movies_cleaned
-GROUP BY star, director 
-ORDER BY SUM(gross) DESC LIMIT 5;
+WITH top_duos AS (SELECT star, director, MAX(gross), SUM(gross) 
+                  FROM movies_cleaned
+                  GROUP BY star, director 
+                  ORDER BY SUM(gross) DESC LIMIT 5
+                  )
+
+SELECT * FROM movies_cleaned
+WHERE (star, director, gross) IN(SELECT * FROM top_duos);                  
 
