@@ -61,3 +61,18 @@ FROM marks;
 -- 95     1
 -- 95     1
 -- 89     2
+
+--DENSE_RANK () QUERY :
+SELECT *,
+DENSE_RANK() OVER(PARTITION BY branch ORDER BY marks DESC )
+FROM marks;
+
+
+
+--ROW_NUMBER() use case :
+
+-- This is use of creating a row number of the rows.
+SELECT *, CONCAT(branch, "-", ROW_NUMBER() 
+                 OVER(PARTITION BY branch)
+                 )
+FROM marks;
